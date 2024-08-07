@@ -23,4 +23,37 @@ router.get('/imc', function(req, res,) {
   res.send(msg);
 });
 
+let autores = ["Mirian Leitão", "Ana Beatriz Silva Barbosa", "Stephen King"];
+router.use(express.urlencoded({extended: true}));
+
+router.get('/autores', function(req, res) {
+  res.json(autores)
+})
+
+router.get('/autores/consulta/:id', function(req, res) {
+  let id = req.params.id;
+  res.json(autores[id]);
+})
+
+router.post('/autores/inclui', function(req, res) {
+  let nome = req.body.nome;
+  autores.push(nome);
+  res.json(autores);
+})
+
+router.put('/autores/altera/:id', function(req, res) {
+  let id = req.params.id;
+  let nome = req.body.nome;
+
+  autores[id] = nome;
+  res.json(autores);
+})
+
+router.delete('/autores/exclui/:id', function(req, res) {
+  let id = req.params.id;
+
+  autores.splice(id, 1);
+  res.json(autores);
+})
+
 module.exports = router;
