@@ -11,8 +11,8 @@
 <td scope="row"><%= item.NoNacionalidade%></td>
 
 
-<a href="/edit/<%=item.IdAutor%>" class = "btn btn-primary">Editar</a>
-<a href="/delete/<=%item.IdAutor%>" class = "btn btn-danger">Excluir</a>
+<a href="/autores/edit/<%=item.IdAutor%>" class = "btn btn-primary">Editar</a>
+<a href="/autores/delete/<=%item.IdAutor%>" class = "btn btn-danger">Excluir</a>
 
 
 /* Códigos para autores.js */
@@ -33,3 +33,22 @@ router.get('/edit/:id', function(req, res) {
         res.render('autores-add', {resultado: listagem[0]});
     });
 });
+
+
+// Autores-add.ejs
+<% if (resultado.IdAutor) {%>
+    <input type = "hidden" id= "IdNacionalidade" name = "IdNacionalidade" value="<%= resultado.IdNacionalidade%>">
+    <h1>Alterar Autores</h1>
+    <form method = "#" action = "/autores/edit/<%= resultado.IdAutor%>" class="row g-3"></form>
+<%} else {%>
+    <h1>Cadastro de Autores</h1>
+    <form method = "POST" action = "/autores/add" class="row g-3">
+<%}%>
+  <div class="col-md-6">
+    <label for="inputAutores" class="form-label">Autor</label>
+    <% if (resultado.IdAutor) {%>
+      <input type="text" class="form-control" id="inputAutores" name ="nome" placeholder="Nome" value="<%= resultado.NoAutor%>">
+    <%} else {%>
+    <input type="text" class="form-control" id="inputAutores" name ="nome" placeholder="Nome">
+    <%}%>
+  </div>
